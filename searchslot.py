@@ -77,6 +77,24 @@ def book_dps_appointment(first_name, last_name, dob, email, phone, zip_code, ser
             return
 
         time.sleep(5)
+
+        # Check for which button is enabled (blue button)
+        print("📅 Checking which appointment button is active...")
+        try:
+            existing_appt = driver.find_element(By.XPATH, "//*[@id='app']/section/div/main/div/section/div[2]/div/div/div[5]/div")
+            new_appt = driver.find_element(By.XPATH, "//*[@id='app']/section/div/main/div/section/div[2]/div/div/div[3]/div/button/span")
+            
+            if "blue" in existing_appt.get_attribute("class"):  # Check if it's styled as enabled
+                existing_appt.click()
+                print("🗓️ Clicked on 'Existing Appointment'.")
+            else:
+                new_appt.click()
+                print("➕ Clicked on 'New Appointment'.")
+        except Exception as e:
+            print("❌ Error determining which button to click:", str(e))
+            return
+
+        time.sleep(5)
         print("✅ Done!")
     
     except Exception as e:
