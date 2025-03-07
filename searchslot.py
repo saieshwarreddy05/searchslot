@@ -114,6 +114,52 @@ def book_dps_appointment(first_name, last_name, dob, email, phone, zip_code, ser
 
         time.sleep(5)
         print("✅ Done!")
+
+
+        # (Your existing code remains unchanged up to "✅ Done!")
+
+        time.sleep(5)
+
+        # Fill additional form details (phone, email, zip code)
+        print("📩 Filling personal details...")
+        try:
+            phone_field = driver.find_element(By.XPATH, "//*[@id='input-131']")
+            email_field = driver.find_element(By.XPATH, "//*[@id='input-134']")
+            confirm_email_field = driver.find_element(By.XPATH, "//*[@id='input-137']")
+            zip_code_field = driver.find_element(By.XPATH, "//*[@id='input-160']")
+            next_button = driver.find_element(By.XPATH, "//*[@id='app']/section/div/main/div/section/div[2]/div/form/div/div[2]/div[2]/div/div[2]")
+            print("✅ Found personal details form.")
+        except Exception as e:
+            print("❌ Personal details form not found:", str(e))
+            return
+
+        # Fill form details with a delay to avoid bot detection
+        print("📝 Entering information...")
+        time.sleep(3)
+        if phone:  # Only fill phone number if provided
+            phone_field.send_keys(phone)
+        time.sleep(3)
+        email_field.send_keys(email)
+        time.sleep(3)
+        confirm_email_field.send_keys(email)
+        time.sleep(3)
+        zip_code_field.send_keys(zip_code)
+        print("✅ Personal details entered.")
+
+        # Click Next after delay
+        print("➡️ Clicking 'Next' button after 5 sec...")
+        time.sleep(5)
+        try:
+            next_button.click()
+            print("✅ Clicked 'Next'.")
+        except Exception as e:
+            print("❌ Could not click 'Next':", str(e))
+            return
+
+        time.sleep(5)
+        print("✅ All details filled and proceeding to the next step!")
+
+
     
     except Exception as e:
         print("❌ Error:", str(e))
@@ -127,7 +173,7 @@ book_dps_appointment(
     last_name="Doe",
     dob="01/01/1990",
     email="jonaro7653@kaiav.com",
-    phone="1234567890",
+    phone="6823751689",
     zip_code="76120",
     service_type="Change, Replace or Renew Texas DL/PERMIT"
 )
