@@ -95,6 +95,24 @@ def book_dps_appointment(first_name, last_name, dob, email, phone, zip_code, ser
             return
 
         time.sleep(5)
+
+        # Click the appropriate service button (Apply for New DL or Renewal)
+        print("🔍 Checking which service button is enabled...")
+        try:
+            apply_new_dl_button = driver.find_element(By.XPATH, "//*[@id='app']/section/div/main/div/section/div[2]/div/main/div/div/div[1]/div[1]/button")
+            renewal_button = driver.find_element(By.XPATH, "//*[@id='app']/section/div/main/div/section/div[2]/div/main/div/div/div[1]/div[2]")
+            
+            if "blue" in renewal_button.get_attribute("class"):  # Check if it's styled as enabled
+                renewal_button.click()
+                print("🔄 Clicked on 'Renewal'.")
+            else:
+                apply_new_dl_button.click()
+                print("🆕 Clicked on 'Apply for New DL'.")
+        except Exception as e:
+            print("❌ Error determining which service button to click:", str(e))
+            return
+
+        time.sleep(5)
         print("✅ Done!")
     
     except Exception as e:
